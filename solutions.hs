@@ -76,10 +76,7 @@ quicksort (x:xs) =
 data NestedList a = Elem a | List [NestedList a]
         deriving (Show)
 
-flatten :: NestedList a -> NestedList a
-flatten (Elem x) = Elem x
-flatten (List (List xs):ys) = flatten xs ++ flatten ys
-flatten (List (Elem x):ys) = List $ x : flatten ys
+flatten :: NestedList a -> [a]
+flatten (Elem x) = x:[]
+flatten (List xs) = foldr (\x acc -> flatten x ++ acc) [] xs
 
--- flatten (Elem x) = Elem x
--- flatten (List xs) = List $ foldr (\x acc -> flatten x : acc) [] xs
