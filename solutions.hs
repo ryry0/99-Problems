@@ -80,3 +80,9 @@ flatten :: NestedList a -> [a]
 flatten (Elem x) = x:[]
 flatten (List xs) = foldr (\x acc -> flatten x ++ acc) [] xs
 
+-- problem 8
+compress :: (Eq a) => [a] -> [a]
+compress xs =  foldr (\x acc -> case acc of [] -> x:acc 
+                                            acc -> if x == head acc 
+                                                   then acc 
+                                                   else x:acc) [] xs
