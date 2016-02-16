@@ -86,3 +86,21 @@ compress xs =  foldr (\x acc -> case acc of [] -> x:acc
                                             acc -> if x == head acc 
                                                    then acc 
                                                    else x:acc) [] xs
+
+-- problem 9
+pack :: (Eq a) => [a] -> [[a]]
+pack = foldr (ff) []
+        where 
+                ff :: (Eq a) => a -> [[a]] -> [[a]]
+                ff x [] = [x]:[]
+                ff x (ys:yss)
+                        | x == head ys = (x:ys):yss
+                        | otherwise = [x]:ys:yss
+
+-- problem 10
+encode' :: (Eq a) => [a] -> [(Int, a)]
+encode' = ff . pack
+         where
+         ff :: (Eq a) => [[a]] -> [(Int, a)]
+         ff [] = []
+         ff (x:xs) = (length x, head x): ff xs
